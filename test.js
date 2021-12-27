@@ -1,7 +1,7 @@
 const test = require('test-kit').tape()
 const crabs = require('.')
 
-test.print('counts', function (t) {
+test('counts', function (t) {
     t.table_assert([
         [ 'a',            'beg', 'end', 'exp' ],
         [ [ 0, 1, 2 ],    1,     2,     [ 3, 5 ] ],

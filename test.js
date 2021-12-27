@@ -14,7 +14,7 @@ test('counts', function (t) {
 test('least_moves_linear', function (t) {
     t.table_assert([
         [ 'a',                'exp' ],
-        [ [ 0, 1, 2, 3 ],     4 ],
+        [ [ 0, 1, 2, 2 ],     3 ],
         [ [ 0, 3, 2, 6 ],     8 ],
         [ [ 0, 1, 2, 7 ],     4 ],
         [ [ 2, 1, 2, 7 ],     10 ],

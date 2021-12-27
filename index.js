@@ -49,10 +49,10 @@ function best_dist (hi_count, lo_count, hi_dist, lo_dist, a, i, step) {
 }
 
 function least_moves_linear (a) {
-    if (a.length < 4) {
-        throw Error('array must be at least 4 long')
+    if (a.length < 3) {
+        throw Error('position indexes must be at least 3 long')
     }
-    let i = ~~(a.length/2) - 1
+    let i = ~~(a.length/2)
     // calculate distance
     let [lcount, ldist] = dist_info(a, i - 1, 0)
     let [rcount, rdist] = dist_info(a, i + 1, a.length-1)

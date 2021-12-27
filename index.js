@@ -63,6 +63,33 @@ function least_moves_linear (a) {
     }
 }
 
+function dist_triangular (a, beg, end) {
+    let dist = 0
+    let dir = beg > end ? -1 : 1       // dir(ection) represents the direction to calculate
+    let max = (end - beg) * dir        // = Math.abs(end - beg)
+
+    for (let i=0; i <= max; i++) {
+        let count = a[beg + (i*dir)]
+        let n = i + 1
+        let tsum = (n * (n+1))/2        // triangular sum
+        dist += count * tsum
+    }
+    return dist
+}
+
+function least_moves_triangular (a) {
+    let best = dist_triangular(a, 0, a.length-1)
+    for (let i=1; i<a.length; i++) {
+        let rdist = dist_triangular(a, i+1, a.length-1)
+        let ldist = dist_triangular(a, i-1, 0)
+        if (ldist + rdist < best) {
+            best = ldist + rdist
+            console.log(`i: ${i},  new best: ${best}`)
+        }
+    }
+    return best
+}
+
 module.exports = {
     least_moves_linear: least_moves_linear,
     counts: dist_info,
@@ -71,12 +98,12 @@ module.exports = {
 
 if (require.main === module) {
     let positions = fs.readFileSync('./data', 'utf8').split(',').map(ns => parseInt(ns))
-    // let datastr = '1,2,0,4,2,7,1,2'
-    // pos: 1, 2, 3, 0, 1, 0, 0, 1 : 1x2 + 2x3 + 3x0 + 4x1 + 5x0 + 6x0 + 7x1 = 19
-    // let datastr = '16,1,2,0,4,2,7,1,2,14'
+    // let positions = [1,2,0,4,2,7,1,2]
+    // indexes: 1, 2, 3, 0, 1, 0, 0, 1 : 1x2 + 2x3 + 3x0 + 4x1 + 5x0 + 6x0 + 7x1 = 19
+    // let positions = [6,1,2,0,4,2,7,1,2,14]
     // pos: 1, 2, 3, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1 : 1x2 + 2x3 + 3x0 + 4x1 + 5x0 + 6x0 + 7x1 ... + 14x1 + 16x1 = 49
     let pos = index_positions(positions)
     console.log('indexes:', pos)
-    console.log(least_moves_linear(pos))
+    console.log(least_moves_triangular(pos))
     // 328187 - too low
 }
